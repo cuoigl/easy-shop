@@ -11,8 +11,11 @@ import { Container, Header, Icon, Input, Item, Text } from "native-base";
 
 import ProductList from "./ProductList";
 import SearchedProduct from "./SearchedProducts";
+import Banner from "../Shared/Banner";
 
 const data = require("../../assets/data/products.json");
+
+var { height } = Dimensions.get("window");
 
 const ProductContainer = () => {
   const [products, setProducts] = useState([]);
@@ -60,15 +63,17 @@ const ProductContainer = () => {
         <SearchedProduct productsFiltered={productsFiltered} />
       ) : (
         <View>
-          <Text>Product Container</Text>
-          <View style={{ marginTop: 100 }}>
+          <View style={styles.container}>
+            <Banner />
+          </View>
+          <View style={styles.listContainer}>
             <FlatList
-              numColumns={2}
               data={products}
+              numColumns={2}
               renderItem={({ item }) => (
-                <ProductList key={item.id} item={item} />
+                <ProductList key={item.brand} item={item} />
               )}
-              keyExtractor={(item) => item.name}
+              keyExtractor={(item) => item.brand}
             />
           </View>
         </View>
@@ -76,5 +81,24 @@ const ProductContainer = () => {
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexWrap: "wrap",
+    backgroundColor: "gainsboro",
+  },
+  listContainer: {
+    height: height,
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-start",
+    flexWrap: "wrap",
+    backgroundColor: "gainsboro",
+  },
+  center: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 export default ProductContainer;
