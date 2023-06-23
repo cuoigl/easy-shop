@@ -15,7 +15,7 @@ import Banner from "../Shared/Banner";
 import CategoryFilter from "./CategoryFilter";
 
 const data = require("../../assets/data/products.json");
-const categories = require("../../assets/data/categories.json");
+const productsCategories = require("../../assets/data/categories.json");
 
 var { height } = Dimensions.get("window");
 
@@ -24,6 +24,8 @@ const ProductContainer = () => {
   const [productsFiltered, setProductsFiltered] = useState([]);
   const [focus, setFocus] = useState();
   const [categories, setCategories] = useState([]);
+  const [productsCtg, setProductsCtg] = useState([]);
+
   const [active, setActive] = useState();
   const [initialState, setInitialState] = useState([]);
 
@@ -31,7 +33,7 @@ const ProductContainer = () => {
     setProducts(data);
     setProductsFiltered(data);
     setFocus(false);
-    setCategories(categories);
+    setCategories(productsCategories);
     setActive(-1);
     setInitialState(data);
 
@@ -58,6 +60,20 @@ const ProductContainer = () => {
   const onBlur = () => {
     setFocus(false);
   };
+
+  // Categories
+  const changeCtg = (ctg) => {
+    {
+      ctg === "all"
+        ? [setProductsCtg(initialState), setActive(true)]
+        : [
+            setProductsCtg(
+              products.filter((i) => i.category._id === ctg),
+              setActive(true)
+            ),
+          ];
+    }
+  };
   return (
     <Container>
       <Header searchBar rounded>
@@ -79,7 +95,13 @@ const ProductContainer = () => {
             <Banner />
           </View>
           <View>
-            <CategoryFilter />
+            <CategoryFilter
+              categories={categories}
+              categoryFilter={changeCtg}
+              productsCtg={productsCtg}
+              active={active}
+              setActive={setActive}
+            />
           </View>
           <View style={styles.listContainer}>
             <FlatList
