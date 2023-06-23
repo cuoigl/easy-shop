@@ -12,6 +12,7 @@ import { Container, Header, Icon, Input, Item, Text } from "native-base";
 import ProductList from "./ProductList";
 import SearchedProduct from "./SearchedProducts";
 import Banner from "../Shared/Banner";
+import CategoryFilter from "./CategoryFilter";
 
 const data = require("../../assets/data/products.json");
 const categories = require("../../assets/data/categories.json");
@@ -74,8 +75,11 @@ const ProductContainer = () => {
         <SearchedProduct productsFiltered={productsFiltered} />
       ) : (
         <View>
-          <View style={styles.container}>
+          <View>
             <Banner />
+          </View>
+          <View>
+            <CategoryFilter />
           </View>
           <View style={styles.listContainer}>
             <FlatList
