@@ -1,12 +1,7 @@
-import { StatusBar } from "expo-status-bar";
 import { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ActivityIndicator,
-  FlatList,
-} from "react-native";
+import { StyleSheet, View, ActivityIndicator, FlatList } from "react-native";
+
+import { Container, Header, Icon, Input, Item, Text } from "native-base";
 
 import ProductList from "./ProductList";
 
@@ -22,17 +17,25 @@ const ProductContainer = () => {
     };
   }, []);
   return (
-    <View>
-      <Text>Product Container</Text>
-      <View style={{ marginTop: 100 }}>
-        <FlatList
-          numColumns={2}
-          data={products}
-          renderItem={({ item }) => <ProductList key={item.id} item={item} />}
-          keyExtractor={(item) => item.name}
-        />
+    <Container>
+      <Header searchBar rounded>
+        <Item>
+          <Icon name="ios-search" />
+          <Input placeholder="Search" />
+        </Item>
+      </Header>
+      <View>
+        <Text>Product Container</Text>
+        <View style={{ marginTop: 100 }}>
+          <FlatList
+            numColumns={2}
+            data={products}
+            renderItem={({ item }) => <ProductList key={item.id} item={item} />}
+            keyExtractor={(item) => item.name}
+          />
+        </View>
       </View>
-    </View>
+    </Container>
   );
 };
 
