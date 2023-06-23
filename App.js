@@ -1,8 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View, LogBox } from "react-native";
 
 // Screens
 import Header from "./Screens/Shared/Header";
 import ProductContainer from "./Screens/Products/ProductContainer";
+
+LogBox.ignoreAllLogs(true);
 
 export default function App() {
   return (
