@@ -110,7 +110,7 @@ const ProductContainer = () => {
                 data={products}
                 numColumns={2}
                 renderItem={({ item }) => (
-                  <ProductList key={item.brand} item={item} />
+                  <ProductList key={item.name} item={item} />
                 )}
                 keyExtractor={(item) => item.brand}
               />
