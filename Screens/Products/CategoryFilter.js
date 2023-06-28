@@ -1,3 +1,4 @@
+import React from "react";
 import { StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { ListItem, Badge, Text } from "native-base";
 
@@ -37,7 +38,7 @@ const CategoryFilter = (props) => {
               style={[
                 styles.center,
                 { margin: 5 },
-                props.active == props.setActive(props.categories.indexOf(item))
+                props.active == props.categories.indexOf(item)
                   ? styles.active
                   : styles.inactive,
               ]}

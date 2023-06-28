@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   FlatList,
   Dimensions,
+  ScrollView,
 } from "react-native";
 
 import { Container, Header, Icon, Input, Item, Text } from "native-base";
@@ -90,30 +91,32 @@ const ProductContainer = () => {
       {focus == true ? (
         <SearchedProduct productsFiltered={productsFiltered} />
       ) : (
-        <View>
+        <ScrollView>
           <View>
-            <Banner />
+            <View>
+              <Banner />
+            </View>
+            <View>
+              <CategoryFilter
+                categories={categories}
+                categoryFilter={changeCtg}
+                productsCtg={productsCtg}
+                active={active}
+                setActive={setActive}
+              />
+            </View>
+            <View style={styles.listContainer}>
+              <FlatList
+                data={products}
+                numColumns={2}
+                renderItem={({ item }) => (
+                  <ProductList key={item.brand} item={item} />
+                )}
+                keyExtractor={(item) => item.brand}
+              />
+            </View>
           </View>
-          <View>
-            <CategoryFilter
-              categories={categories}
-              categoryFilter={changeCtg}
-              productsCtg={productsCtg}
-              active={active}
-              setActive={setActive}
-            />
-          </View>
-          <View style={styles.listContainer}>
-            <FlatList
-              data={products}
-              numColumns={2}
-              renderItem={({ item }) => (
-                <ProductList key={item.brand} item={item} />
-              )}
-              keyExtractor={(item) => item.brand}
-            />
-          </View>
-        </View>
+        </ScrollView>
       )}
     </Container>
   );
