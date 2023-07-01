@@ -1,7 +1,22 @@
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 
-const Cart = () => {
-  return <Text>CART WORKS</Text>;
+import { connect } from "react-redux";
+
+const Cart = (props) => {
+  return (
+    <View style={{ flex: 1 }}>
+      {props.cartItems.map((x) => {
+        return <Text>{x.product.name}</Text>;
+      })}
+    </View>
+  );
 };
 
-export default Cart;
+const mapStateToProps = (state) => {
+  const { cartItems } = state;
+  return {
+    cartItems: cartItems,
+  };
+};
+
+export default connect(mapStateToProps, null)(Cart);
