@@ -9,6 +9,9 @@ import {
 } from "react-native";
 import { Left, Right, Container, H1 } from "native-base";
 
+import { connect } from "react-redux";
+import * as actions from "../../Redux/Actions/cartActions";
+
 const SingleProduct = (props) => {
   const [item, setItem] = useState(props.route.params.item);
   const [availability, setAvailability] = useState("");
@@ -47,13 +50,21 @@ const SingleProduct = (props) => {
           <Text style={styles.price}>$ {item.price}</Text>
         </Left>
         <Right>
-          <Button title="Add">
-            <Text style={{ color: "white" }}>Add</Text>
-          </Button>
+          <Button
+            title="Add"
+            onPress={() => props.addItemToCart(item)}
+          ></Button>
         </Right>
       </View>
     </Container>
   );
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addItemToCart: (product) =>
+      dispatch(actions.addToCart({ quantity: 1, product })),
+  };
 };
 
 const styles = StyleSheet.create({
@@ -106,4 +117,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SingleProduct;
+export default connect(null, mapDispatchToProps)(SingleProduct);
