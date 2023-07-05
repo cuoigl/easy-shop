@@ -9,6 +9,8 @@ var { width, height } = Dimensions.get("window");
 const Confirm = (props) => {
   const confirm = props.route.params;
 
+  const confirmOrder = () => {};
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.titleContainer}>
@@ -23,8 +25,29 @@ const Confirm = (props) => {
               <Text>Zip Code: {confirm.order.order.zip}</Text>
               <Text>Country: {confirm.order.order.country}</Text>
             </View>
+            <Text style={styles.title}>Items:</Text>
+            {confirm.order.order.orderItems.map((x) => {
+              return (
+                <ListItem style={styles.listItem} key={x.name} avatar>
+                  <Left>
+                    <Thumbnail source={{ uri: x.image }} />
+                  </Left>
+                  <Body style={styles.body}>
+                    <Left>
+                      <Text>{x.name}</Text>
+                    </Left>
+                    <Right>
+                      <Text>$ {x.price}</Text>
+                    </Right>
+                  </Body>
+                </ListItem>
+              );
+            })}
           </View>
         ) : null}
+        <View style={{ alignItems: "center", margin: 20 }}>
+          <Button title={"Place order"} onPress={confirmOrder} />
+        </View>
       </View>
     </ScrollView>
   );
