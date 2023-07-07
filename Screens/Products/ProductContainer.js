@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import {
   StyleSheet,
   View,
@@ -9,6 +9,7 @@ import {
 } from "react-native";
 
 import { Container, Header, Icon, Input, Item, Text } from "native-base";
+import { useFocusEffect } from "@react-navigation/native";
 
 import baseURL from "../../assets/common/baseUrl";
 import axios from "axios";
@@ -30,42 +31,44 @@ const ProductContainer = (props) => {
   const [active, setActive] = useState();
   const [initialState, setInitialState] = useState([]);
 
-  useEffect(() => {
-    setFocus(false);
-    setActive(-1);
+  useFocusEffect(
+    useCallback(() => {
+      setFocus(false);
+      setActive(-1);
 
-    // Products
-    axios
-      .get(`${baseURL}products`)
-      .then((res) => {
-        setProducts(res.data);
-        setProductsFiltered(res.data);
-        setProductsCtg(res.data);
-        setInitialState(res.data);
-      })
-      .catch((error) => {
-        console.log("Api call error");
-      });
+      // Products
+      axios
+        .get(`${baseURL}products`)
+        .then((res) => {
+          setProducts(res.data);
+          setProductsFiltered(res.data);
+          setProductsCtg(res.data);
+          setInitialState(res.data);
+        })
+        .catch((error) => {
+          console.log("Api call error");
+        });
 
-    // Categories
-    axios
-      .get(`${baseURL}categories`)
-      .then((res) => {
-        setCategories(res.data);
-      })
-      .catch((error) => {
-        console.log("Api call error");
-      });
+      // Categories
+      axios
+        .get(`${baseURL}categories`)
+        .then((res) => {
+          setCategories(res.data);
+        })
+        .catch((error) => {
+          console.log("Api call error");
+        });
 
-    return () => {
-      setProducts([]);
-      setProductsFiltered([]);
-      setFocus();
-      setCategories([]);
-      setActive();
-      setInitialState();
-    };
-  }, []);
+      return () => {
+        setProducts([]);
+        setProductsFiltered([]);
+        setFocus();
+        setCategories([]);
+        setActive();
+        setInitialState();
+      };
+    }, [])
+  );
 
   const searchProduct = (text) => {
     setProductsFiltered(
