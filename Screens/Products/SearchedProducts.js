@@ -1,11 +1,11 @@
-import { StyleSheet, View, Dimensions } from "react-native";
-import { Body, Content, Left, ListItem, Thumbnail, Text } from "native-base";
+import React from "react";
+import { View, StyleSheet, Dimensions } from "react-native";
+import { Content, Left, Body, ListItem, Thumbnail, Text } from "native-base";
 
 var { width } = Dimensions.get("window");
 
 const SearchedProduct = (props) => {
   const { productsFiltered } = props;
-
   return (
     <Content style={{ width: width }}>
       {productsFiltered.length > 0 ? (
@@ -14,7 +14,7 @@ const SearchedProduct = (props) => {
             onPress={() => {
               props.navigation.navigate("Product Detail", { item: item });
             }}
-            key={item._id}
+            key={item._id.$oid}
             avatar
           >
             <Left>
@@ -34,7 +34,9 @@ const SearchedProduct = (props) => {
         ))
       ) : (
         <View style={styles.center}>
-          <Text>No products match the selected criteria</Text>
+          <Text style={{ alignSelf: "center" }}>
+            No products match the selected criteria
+          </Text>
         </View>
       )}
     </Content>
@@ -45,6 +47,7 @@ const styles = StyleSheet.create({
   center: {
     justifyContent: "center",
     alignItems: "center",
+    height: 100,
   },
 });
 
