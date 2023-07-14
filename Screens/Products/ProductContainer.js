@@ -16,8 +16,8 @@ import axios from "axios";
 
 import ProductList from "./ProductList";
 import SearchedProduct from "./SearchedProducts";
-import Banner from "../Shared/Banner";
 import CategoryFilter from "./CategoryFilter";
+import Banner from "../../Shared/Banner";
 
 var { height } = Dimensions.get("window");
 

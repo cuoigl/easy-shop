@@ -1,5 +1,5 @@
 import "react-native-gesture-handler";
-import { StyleSheet, View, LogBox } from "react-native";
+import { LogBox } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 
 // Redux
@@ -7,8 +7,7 @@ import { Provider } from "react-redux";
 import store from "./Redux/store";
 
 // Screens
-import Header from "./Screens/Shared/Header";
-import ProductContainer from "./Screens/Products/ProductContainer";
+import Header from "./Shared/Header";
 
 // Navigators
 import Main from "./Navigators/Main";

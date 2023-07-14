@@ -8,7 +8,7 @@ import HomeNavigator from "./HomeNavigator";
 import CartNavigator from "./CartNavigator";
 import UserNavigator from "./UserNavigator";
 
-import CartIcon from "../Screens/Shared/CartIcon";
+import CartIcon from "../Shared/CartIcon";
 
 const Tab = createBottomTabNavigator();
 
