@@ -3,11 +3,11 @@ import { View, Text, StyleSheet, Button } from "react-native";
 import FormContainer from "../../Shared/Form/FormContainer";
 import Input from "../../Shared/Form/Input";
 import Error from "../../Shared/Error";
+import Toast from "react-native-toast-message";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
-
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const Register = (props) => {
   const [email, setEmail] = useState("");
@@ -33,12 +33,25 @@ const Register = (props) => {
       .post(`${baseURL}users/register`, user)
       .then((res) => {
         if (res.status == 200) {
+          Toast.show({
+            topOffset: 60,
+            type: "success",
+            text1: "Registration Succeeded",
+            text2: "Please Login into your account",
+          });
           setTimeout(() => {
             props.navigation.navigate("Login");
           }, 500);
         }
       })
-      .catch((error) => {});
+      .catch((error) => {
+        Toast.show({
+          topOffset: 60,
+          type: "error",
+          text1: "Something went wrong",
+          text2: "Please try again",
+        });
+      });
   };
 
   return (
