@@ -18,7 +18,46 @@ const ListItem = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <TouchableOpacity
+              underlayColor="#E8E8E8"
+              onPress={() => {
+                setModalVisible(false);
+              }}
+              style={{
+                alignSelf: "flex-end",
+                position: "absolute",
+                top: 5,
+                right: 10,
+              }}
+            >
+              <Icon name="close" size={20} />
+            </TouchableOpacity>
+            <Button
+              title="Edit"
+              onPress={() => [
+                props.navigation.navigate("ProductForm", { item: props }),
+                setModalVisible(false),
+              ]}
+            />
+            <Button title="Delete" />
+          </View>
+        </View>
+      </Modal>
       <TouchableOpacity
+        onPress={() => {
+          props.navigation.navigate("Product Detail", { item: props });
+        }}
+        onLongPress={() => setModalVisible(true)}
         style={[
           styles.container,
           {
