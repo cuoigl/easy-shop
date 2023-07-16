@@ -86,6 +86,7 @@ const Products = (props) => {
       ) : (
         <FlatList
           data={productFilter}
+          ListHeaderComponent={ListHeader}
           renderItem={({ item, index }) => (
             <ListItem {...item} navigation={props.navigation} index={index} />
           )}
