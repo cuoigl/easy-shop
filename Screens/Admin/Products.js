@@ -19,6 +19,26 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 var { height, width } = Dimensions.get("window");
 
+const ListHeader = () => {
+  return (
+    <View elevation={1} style={styles.listHeader}>
+      <View style={styles.headerItem}></View>
+      <View style={styles.headerItem}>
+        <Text style={{ fontWeight: "600" }}>Brand</Text>
+      </View>
+      <View style={styles.headerItem}>
+        <Text style={{ fontWeight: "600" }}>Name</Text>
+      </View>
+      <View style={styles.headerItem}>
+        <Text style={{ fontWeight: "600" }}>Category</Text>
+      </View>
+      <View style={styles.headerItem}>
+        <Text style={{ fontWeight: "600" }}>Price</Text>
+      </View>
+    </View>
+  );
+};
+
 const Products = (props) => {
   const [productList, setProductList] = useState();
   const [productFilter, setProductFilter] = useState();
@@ -49,7 +69,26 @@ const Products = (props) => {
   );
   return (
     <View>
-      <Text>Products Screen</Text>
+      <View>
+        <Header searchBar rounded>
+          <Item style={{ padding: 5 }}>
+            <Icon name="search" />
+
+            <Input placeholder="Search" />
+          </Item>
+        </Header>
+      </View>
+      {loading ? (
+        <View style={styles.spinner}>
+          <ActivityIndicator size="large" color="red" />
+        </View>
+      ) : (
+        <FlatList
+          data={productFilter}
+          renderItem={({ item, index }) => <Text>{item.name}</Text>}
+          keyExtractor={(item) => item.id}
+        />
+      )}
     </View>
   );
 };
