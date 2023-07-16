@@ -18,7 +18,14 @@ const ListItem = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View>
-      <TouchableOpacity>
+      <TouchableOpacity
+        style={[
+          styles.container,
+          {
+            backgroundColor: props.index % 2 == 0 ? "white" : "gainsboro",
+          },
+        ]}
+      >
         <Image
           source={{
             uri: props.image
