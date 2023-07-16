@@ -78,6 +78,7 @@ const Products = (props) => {
           </Item>
         </Header>
       </View>
+
       {loading ? (
         <View style={styles.spinner}>
           <ActivityIndicator size="large" color="red" />
@@ -85,7 +86,9 @@ const Products = (props) => {
       ) : (
         <FlatList
           data={productFilter}
-          renderItem={({ item, index }) => <Text>{item.name}</Text>}
+          renderItem={({ item, index }) => (
+            <ListItem {...item} navigation={props.navigation} index={index} />
+          )}
           keyExtractor={(item) => item.id}
         />
       )}
