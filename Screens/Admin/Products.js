@@ -10,8 +10,10 @@ import {
 } from "react-native";
 import { Header, Item, Input } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
+
 import { useFocusEffect } from "@react-navigation/native";
 import ListItem from "./ListItem";
+import EasyButton from "../../Shared/StyledComponents/EasyButton";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
@@ -94,6 +96,32 @@ const Products = (props) => {
   return (
     <View>
       <View>
+        <View style={styles.buttonContainer}>
+          <EasyButton
+            secondary
+            medium
+            onPress={() => props.navigation.navigate("Orders")}
+          >
+            <Icon name="shopping-bag" size={18} color="white" />
+            <Text style={styles.buttonText}>Orders</Text>
+          </EasyButton>
+          <EasyButton
+            secondary
+            medium
+            onPress={() => props.navigation.navigate("ProductForm")}
+          >
+            <Icon name="plus" size={18} color="white" />
+            <Text style={styles.buttonText}>Products</Text>
+          </EasyButton>
+          <EasyButton
+            secondary
+            medium
+            onPress={() => props.navigation.navigate("Categories")}
+          >
+            <Icon name="plus" size={18} color="white" />
+            <Text style={styles.buttonText}>Categories</Text>
+          </EasyButton>
+        </View>
         <Header searchBar rounded>
           <Item style={{ padding: 5 }}>
             <Icon name="search" />
