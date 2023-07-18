@@ -8,9 +8,13 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 import { connect } from "react-redux";
 
+import AuthGlobal from "../../../Context/store/AuthGlobal";
+
 const countries = require("../../../assets/data/countries.json");
 
 const Checkout = (props) => {
+  const context = useContext(AuthGlobal);
+
   const [orderItems, setOrderItems] = useState();
   const [address, setAddress] = useState();
   const [address2, setAddress2] = useState();

@@ -1,14 +1,14 @@
+import React from "react";
 import {
-  Dimensions,
-  View,
   StyleSheet,
+  View,
+  Dimensions,
   Image,
   Text,
   Button,
 } from "react-native";
 import Toast from "react-native-toast-message";
 import EasyButton from "../../Shared/StyledComponents/EasyButton";
-
 import { connect } from "react-redux";
 import * as actions from "../../Redux/Actions/cartActions";
 
@@ -40,7 +40,7 @@ const ProductCard = (props) => {
             primary
             medium
             onPress={() => {
-              props.addItemToCart(props),
+              props.addItemToCart(props.id),
                 Toast.show({
                   topOffset: 60,
                   type: "success",

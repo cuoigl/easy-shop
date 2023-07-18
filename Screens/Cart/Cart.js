@@ -1,45 +1,61 @@
-import {
-  View,
-  Dimensions,
-  StyleSheet,
-  Button,
-  TouchableOpacity,
-} from "react-native";
-import {
-  Container,
-  Text,
-  Left,
-  Right,
-  H1,
-  ListItem,
-  Thumbnail,
-  Body,
-} from "native-base";
+import React, { useContext, useEffect, useState } from "react";
+import { View, Dimensions, StyleSheet, TouchableOpacity } from "react-native";
+import { Container, Text, Left, Right, H1 } from "native-base";
+import { SwipeListView } from "react-native-swipe-list-view";
+import CartItem from "./CartItem";
 
 import Icon from "react-native-vector-icons/FontAwesome";
 import EasyButton from "../../Shared/StyledComponents/EasyButton";
 
-import { SwipeListView } from "react-native-swipe-list-view";
-
-import CartItem from "./CartItem";
-
 import { connect } from "react-redux";
 import * as actions from "../../Redux/Actions/cartActions";
+import AuthGlobal from "../../Context/store/AuthGlobal";
+import axios from "axios";
+import baseURL from "../../assets/common/baseUrl";
 
 var { height, width } = Dimensions.get("window");
 
 const Cart = (props) => {
-  var total = 0;
-  props.cartItems.forEach((cart) => {
-    return (total += cart.product.price);
-  });
+  const context = useContext(AuthGlobal);
+
+  // Add this
+  const [productUpdate, setProductUpdate] = useState();
+  const [totalPrice, setTotalPrice] = useState();
+  useEffect(() => {
+    getProducts();
+    return () => {
+      setProductUpdate();
+      setTotalPrice();
+    };
+  }, [props]);
+
+  const getProducts = () => {
+    var products = [];
+    props.cartItems.forEach((cart) => {
+      axios
+        .get(`${baseURL}products/${cart.product}`)
+        .then((data) => {
+          products.push(data.data);
+          setProductUpdate(products);
+          var total = 0;
+          products.forEach((product) => {
+            const price = (total += product.price);
+            setTotalPrice(price);
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    });
+  };
+
   return (
     <>
-      {props.cartItems.length ? (
+      {productUpdate ? (
         <Container>
           <H1 style={{ alignSelf: "center" }}>Cart</H1>
           <SwipeListView
-            data={props.cartItems}
+            data={productUpdate}
             renderItem={(data) => <CartItem item={data} />}
             renderHiddenItem={(data) => (
               <View style={styles.hiddenContainer}>
@@ -61,7 +77,7 @@ const Cart = (props) => {
           />
           <View style={styles.bottomContainer}>
             <Left>
-              <Text style={styles.price}>$ {total}</Text>
+              <Text style={styles.price}>$ {totalPrice}</Text>
             </Left>
             <Right>
               <EasyButton danger medium onPress={() => props.clearCart()}>
@@ -82,7 +98,7 @@ const Cart = (props) => {
       ) : (
         <Container style={styles.emptyContainer}>
           <Text>Looks like your cart is empty</Text>
-          <Text>Add product to your cart to get started</Text>
+          <Text>Add products to your cart to get started</Text>
         </Container>
       )}
     </>
@@ -134,16 +150,6 @@ const styles = StyleSheet.create({
     paddingRight: 25,
     height: 70,
     width: width / 1.2,
-  },
-  listItem: {
-    alignItems: "center",
-    backgroundColor: "white",
-    justifyContent: "center",
-  },
-  body: {
-    margin: 10,
-    alignItems: "center",
-    flexDirection: "row",
   },
 });
 
