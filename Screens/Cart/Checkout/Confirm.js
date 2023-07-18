@@ -15,6 +15,7 @@ const Confirm = (props) => {
 
   // Add this
   const [productUpdate, setProductUpdate] = useState();
+
   useEffect(() => {
     if (finalOrder) {
       getProducts(finalOrder);
@@ -35,6 +36,7 @@ const Confirm = (props) => {
           .then((data) => {
             products.push(data.data);
             setProductUpdate(products);
+            productUpdate.map((x) => console.log(x.name));
           })
           .catch((e) => {
             console.log(e);
