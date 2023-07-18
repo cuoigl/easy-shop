@@ -36,7 +36,6 @@ const Confirm = (props) => {
           .then((data) => {
             products.push(data.data);
             setProductUpdate(products);
-            productUpdate.map((x) => console.log(x.name));
           })
           .catch((e) => {
             console.log(e);

@@ -49,17 +49,18 @@ const Main = () => {
           ),
         }}
       />
-
-      <Tab.Screen
-        name="Admin"
-        component={AdminNavigator}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <Icon name="cog" color={color} size={30} />
-          ),
-        }}
-      />
+      {context.stateUser.user.isAdmin == true ? (
+        <Tab.Screen
+          name="Admin"
+          component={AdminNavigator}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ color }) => (
+              <Icon name="cog" color={color} size={30} />
+            ),
+          }}
+        />
+      ) : null}
 
       <Tab.Screen
         name="User"
